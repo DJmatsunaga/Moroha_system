@@ -1,42 +1,44 @@
 <template>
   <main class="app-content">
-    <div class="app-content-title">
-      <img
-        class="app-content-title-image"
-        alt="MorohaLogo"
-        src="./assets/cheers.jpeg"
-      />
-      <div class="app-content-sub-title">〜刹那の乾杯〜</div>
-    </div>
-    <div class="app-content-button">
-      <Button
-        label="幕開けの夜"
-        class="p-button-secondary p-button-text p-button-lg"
-      ></Button>
-    </div>
+    <TopPage v-show="topPageFlag" @gameStart="gameStart"></TopPage>
+    <AppTimer v-show="gameStartFlag" ref="appTimer"></AppTimer>
   </main>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent } from "vue";
-// import Index from "./components/index.vue";
+import TopPage from "./components/TopPage.vue";
+import AppTimer from "./components/AppTimer.vue";
 
 export default defineComponent({
   name: "App",
+  data() {
+    return {
+      AppTimerRef: {},
+      topPageFlag: true,
+      gameStartFlag: false,
+    };
+  },
+  components: {
+    TopPage,
+    AppTimer,
+  },
+  methods: {
+    gameStart() {
+      this.topPageFlag = false;
+      this.gameStartFlag = true;
+      this.AppTimerRef.startCount();
+    },
+  },
+  mounted() {
+    const AppTimerRef = this.$refs.appTimer;
+    this.AppTimerRef = AppTimerRef;
+  },
 });
 </script>
 
 <style>
 .app-content {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.app-content-sub-title {
-  text-align: center;
-  color: white;
-  font-size: 36px;
 }
 </style>
