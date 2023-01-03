@@ -27,13 +27,13 @@ export default defineComponent({
         startCount() {
             this.count = 3;
             this.setTimeInterval = setInterval(this.countDown, 1000);
-            console.log(this.setTimeInterval)
         },
         countDown() {
-            if (this.count !== 0) {
+            if (this.count !== 1) {
                 this.count--;
             } else {
                 clearInterval(this.setTimeInterval);
+                this.$emit('appTimerToGamePage');
             }
         },
     },
